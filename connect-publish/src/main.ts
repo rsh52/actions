@@ -3,7 +3,7 @@ import { connectPublish, loadArgs } from './connect-publish';
 
 export function run(): void {
   const args = loadArgs();
-  const checkCertificate = core.getInput('check-certificate') === 'true';
+  const checkCertificate = core.getInput('check-certificate') === 'false';
 
   // Pass the checkCertificate to connectPublish
   connectPublish({ ...args, checkCertificate }).catch((err: any) => core.setFailed(err));

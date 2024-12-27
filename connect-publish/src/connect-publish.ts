@@ -31,6 +31,7 @@ export interface ActionArgs {
   updateEnv: boolean
   url: string
   workingDirectory: string
+  checkCertificate: boolean // Add this line
 }
 
 interface publishArgs {
@@ -76,6 +77,10 @@ export async function connectPublish (args: ActionArgs): Promise<ConnectPublishR
 
   const client = new rsconnect.APIClient({ apiKey: args.apiKey, baseURL })
   await client.serverSettings()
+
+  // Set the rsconnect.check.certificate option
+  const rsconnectOptions = `options(rsconnect.check.certificate = ${args.checkCertificate})`;
+  await exec('Rscript', ['-e', rsconnectOptions]);
 
   const { accessType, dirs, force, ns, requireVanityPath, showLogs, updateEnv, workingDirectory } = args
 

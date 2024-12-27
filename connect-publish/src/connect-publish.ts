@@ -82,6 +82,9 @@ export async function connectPublish (args: ActionArgs): Promise<ConnectPublishR
   const rsconnectOptions = `options(rsconnect.check.certificate = ${args.checkCertificate})`;
   await exec('Rscript', ['-e', rsconnectOptions]);
 
+  // Debug: Print the current value of rsconnect.check.certificate
+  await exec('Rscript', ['-e', 'print(getOption("rsconnect.check.certificate"))']);
+
   const { accessType, dirs, force, ns, requireVanityPath, showLogs, updateEnv, workingDirectory } = args
 
   process.chdir(workingDirectory)
